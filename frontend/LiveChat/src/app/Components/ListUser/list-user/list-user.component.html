@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="user-list-wrapper">
+    <h3>User list</h3>
+    <div *ngFor="let user of AllUsers" class="user-card" (click)="selectUser(user)">
+      <div class="image" [ngStyle]="{'background-color': user.imagecolor}">
+        {{ user.username.charAt(0).toUpperCase() }}
+      </div>
+      <div class="name">{{ user.username }}</div>
+    </div>
+  </div>
+
+  <div class="logout">
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>

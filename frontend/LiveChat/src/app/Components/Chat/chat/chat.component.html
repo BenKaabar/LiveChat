@@ -1,0 +1,30 @@
+<div class="main">
+    <div class="chat">
+        <!-- Top section -->
+        <div class="top">
+            <div class="image" [ngStyle]="{'background-color': currentuser?.imagecolor}">
+                {{ currentuser?.username?.charAt(0)?.toUpperCase() }}
+            </div>
+            <div class="name">{{ currentuser?.username }}</div>
+        </div>
+
+        <!-- Middle (Messages) -->
+        <div class="middle" #messageContainer *ngIf="currentchatroom">
+            <div class="message" *ngFor="let msg of currentchatroom.content">
+                <div *ngIf="msg.sender == hostuser?.username" class="message-item sender">
+                    <h6>{{ msg.message }}</h6>
+                </div>
+                <div *ngIf="msg.sender == currentuser?.username" class="message-item receiver">
+                    <h6>{{ msg.message }}</h6>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Bottom (Input) -->
+        <div class="bottom" *ngIf="currentchatroom">
+            <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+            <button (click)="sendMessage()" [disabled]="newMessage == ''">Send</button>
+        </div>
+    </div>
+</div>
