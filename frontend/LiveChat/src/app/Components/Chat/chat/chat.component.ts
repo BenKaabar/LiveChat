@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
   hostuser: User | null = null;
   currentchatroom!: Chatroom;
   newMessage: string = '';
+  showEmojiPicker = false;
   @ViewChild('messageContainer') messageContainer!: ElementRef;
 
   constructor(private userService: UserService,
@@ -99,5 +100,14 @@ export class ChatComponent implements OnInit {
     audio.load();
     audio.play().catch(err => console.warn('Autoplay failed:', err));
   }
+  toggleEmojiPicker() {
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event: any) {
+    const emoji = event.emoji?.native || event.native;
+    this.newMessage += emoji;
+  }
+
 
 }

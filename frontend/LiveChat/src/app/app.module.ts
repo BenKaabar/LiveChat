@@ -11,6 +11,7 @@ import { SigninComponent } from './Components/login/signin/signin.component';
 import { FormsModule } from '@angular/forms';
 import { SignupComponent } from './Components/login/signup/signup.component';
 import { AuthInterceptor } from './Interceptor/auth.interceptor';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { AuthInterceptor } from './Interceptor/auth.interceptor';
     BrowserModule,
     AppRoutingModule, // for router-outlet
     FormsModule,
-    HttpClientModule // for Http Client routing between spring and angular
+    HttpClientModule, // for Http Client routing between spring and angular
+    PickerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

@@ -24,6 +24,17 @@
         <!-- Bottom (Input) -->
         <div class="bottom" *ngIf="currentchatroom">
             <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+            <div class="emoji-wrapper">
+                <button (click)="toggleEmojiPicker()">😊</button>
+                <div *ngIf="showEmojiPicker" class="emoji-popup">
+                    <div class="emoji-scroll-container">
+                        <emoji-mart set="apple" (emojiSelect)="addEmoji($event)"
+                            [style]="{ width: '100%', height: 'auto' }"></emoji-mart>
+                    </div>
+                </div>
+            </div>
+
+
             <button (click)="sendMessage()" [disabled]="newMessage == ''">Send</button>
         </div>
     </div>
