@@ -17,6 +17,10 @@ export class SignupComponent {
   ) { }
 
   signup() {
+    if (!this.username.trim() || !this.password.trim()) {
+      alert('Username and password are required.');
+      return;
+    }
     const user: User = {
       idUser: '',
       username: this.username,

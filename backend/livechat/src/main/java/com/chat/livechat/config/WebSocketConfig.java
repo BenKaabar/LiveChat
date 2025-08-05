@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("http://localhost:4200") // sécurité : préciser Angular
+                .setAllowedOriginPatterns("http://localhost:4200")
                 .withSockJS();
     }
 }

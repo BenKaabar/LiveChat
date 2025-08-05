@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
+import { AuthService } from 'src/app/Service/Auth/auth.service';
 import { UserService } from 'src/app/Service/User/user.service';
 
 @Component({
@@ -8,25 +9,29 @@ import { UserService } from 'src/app/Service/User/user.service';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
-export class SigninComponent {
+export class SigninComponent implements OnInit {
   host: User | null = null;
   username: string = '';
   password: string = '';
 
-  constructor(private userService: UserService,
-    private router: Router
-  ) { }
+  constructor(private authService: AuthService,
+    private userService: UserService,
+    private router: Router) { }
+    
+  ngOnInit(): void {
+    localStorage.clear();
+  }
 
   signin() {
-    this.userService.signin(this.username, this.password).subscribe({
+    this.authService.signin(this.username, this.password).subscribe({
       next: (response) => {
-        this.userService.sethost(response);
-        this.router.navigateByUrl("/Home");
+        this.router.navigateByUrl('/Home');
+        this.userService.sethost(response.user)
       },
-      error: (err) => {
-        alert('Login failed: ' + err.error.message);
+      error: () => {
+        alert('Login failed: enter your right credentials');
       }
-    })
+    });
   }
   navigateToSignup() {
     this.router.navigateByUrl("/Signup")

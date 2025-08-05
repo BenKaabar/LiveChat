@@ -20,7 +20,7 @@
   align-items: center;
   height: 60px;
   padding: 0 15px;
-  background-color: #444;
+  background-color: #3c414c;
   color: white;
 }
 
@@ -38,7 +38,7 @@
 /* middle */
 .middle {
   flex-grow: 1;
-  background-color: #fff8dc;
+  background-color: #b1efe6;
   padding: 10px;
   overflow-y: auto;
   display: flex;

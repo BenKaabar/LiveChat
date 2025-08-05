@@ -25,13 +25,15 @@ export class ChatComponent implements OnInit {
     private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.hostuser = this.userService.gethost();
-    if (this.hostuser == null) {
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
       this.router.navigateByUrl("/Signin");
       return;
     }
-    this.chatService.connect();
+    const userObj: User = JSON.parse(storedUser);
+    this.userService.sethost(userObj);
     this.hostuser = this.userService.gethost();
+    this.chatService.connect();
     this.userService.getUser().subscribe((user) => {
       this.currentuser = user;
       if (this.userService.gethost()) {
@@ -68,7 +70,7 @@ export class ChatComponent implements OnInit {
       receiver: this.currentuser?.username || '',
       message: this.newMessage
     };
-    //  ****************** to save message ******************
+    //  ****************** to save message in database ******************
     this.chatService.saveMessage(message).subscribe({
       next: () => {
         this.newMessage = '';

@@ -40,6 +40,7 @@ export class ListUserComponent implements OnInit {
     this.userService.clearhost();
     this.userService.clearUser();
     this.chatService.disconnect();
+    localStorage.clear();
     this.router.navigateByUrl("/Signin")
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../Models/User';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -24,14 +24,6 @@ export class UserService {
   createUser(user: User): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/create`, user);
   }
-  signin(username: string, password: string): Observable<User> {
-    const params = new HttpParams()
-      .set('username', username)
-      .set('password', password);
-
-    return this.http.post<User>(`${this.apiUrl}/signin`, null, { params });
-  }
-
 
   setUser(user: User) {
     this.selectedUser.next(user);

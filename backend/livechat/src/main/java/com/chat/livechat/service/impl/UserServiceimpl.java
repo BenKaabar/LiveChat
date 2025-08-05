@@ -1,6 +1,7 @@
 package com.chat.livechat.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,20 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public User signin(String username, String password) throws NotFoundException {
-        User fetchuser = userRepository.findByUsername(username);
-        log.info(fetchuser.toString());
-        if (fetchuser != null && passwordEncoder.matches(password, fetchuser.getPassword())) {
-            return fetchuser;
-        } else
+        Optional<User> optionalUser = userRepository.findByUsername(username);
 
-        {
-            throw new NotFoundException("user not found");
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            } else {
+                log.warn("Invalid password for user: {}", username);
+                throw new NotFoundException("Invalid password");
+            }
+        } else {
+            log.warn("User not found: {}", username);
+            throw new NotFoundException("User not found");
         }
     }
 

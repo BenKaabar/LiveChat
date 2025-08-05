@@ -19,8 +19,7 @@ export class ChatService {
   getChatroomById(sender: string, recevier: string): Observable<Chatroom> {
     const params = new HttpParams()
       .set('sender', sender)
-      .set('recevier', recevier);
-
+      .set('receiver', recevier);
     return this.http.get<Chatroom>(`${this.apiUrl}/getChatroomById`, { params });
   }
 
@@ -83,6 +82,4 @@ export class ChatService {
       this.stompClient.deactivate();
     }
   }
-
-
 }

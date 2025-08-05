@@ -17,6 +17,7 @@ import com.chat.livechat.service.ChatroomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 @RestController
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/chatroom")
 public class ChatroomContoller {
 
@@ -50,9 +52,10 @@ public class ChatroomContoller {
     }
 
     @GetMapping("/getChatroomById")
-    public ResponseEntity<?> getChatroomById(@RequestParam String sender, @RequestParam String recevier) {
+    public ResponseEntity<?> getChatroomById(@RequestParam String sender, @RequestParam String receiver) {
         try {
-            Chatroom chatroom = chatroomService.getChatroomById(sender, recevier);
+            log.info("reaching getChatroomById " + receiver + " " + sender);
+            Chatroom chatroom = chatroomService.getChatroomById(sender, receiver);
             return ResponseEntity.ok().body(chatroom);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
